@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_google_maps',
     'core',
+
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom User model
 
 AUTH_USER_MODEL = 'core.User'
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyDm0gMbmPbHTaSZDp-0eUN62MhmBuSdQbU'
