@@ -3,16 +3,16 @@ from .custom import domain_validator, alphanumeric_upper_space, file_name_valida
 from django.contrib.auth.models import AbstractUser
 from django_google_maps import fields as map_fields
 from django.core.validators import URLValidator
-from .forms import LOCALURLFormField
+from .forms import LocalURLFormField
 
 
 
-class LOCALURLField(models.URLField):
+class LocalURLField(models.URLField):
     default_validators = [URLValidator(schemes=['rtsp','http', 'https', 'ftp', 'ftps', 'rtspu', 'rtsps'])]
     
     def formfield(self, **kwargs):
         return super().formfield(**{
-            'form_class': LOCALURLFormField,
+            'form_class': LocalURLFormField,
             **kwargs,
         })
 
@@ -52,7 +52,7 @@ class Camera(models.Model):
     name = models.CharField(max_length=50, validators=[alphanumeric_upper_space])
     camera_id = models.PositiveIntegerField()
     agent = models.ForeignKey(Agent, on_delete=models.SET_NULL, null=True)
-    local_link = LOCALURLField(max_length=150, blank=True, null=True)
+    local_link = LocalURLField(max_length=150, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

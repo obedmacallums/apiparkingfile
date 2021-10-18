@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50, validators=[django.core.validators.RegexValidator('^[0-9A-Z\\s-]*$', 'Only uppercase letters, numbers and spaces allowed')])),
                 ('camera_id', models.PositiveIntegerField()),
-                ('local_link', core.models.LOCALURLField(blank=True, max_length=150, null=True)),
+                ('local_link', core.models.LocalURLField(blank=True, max_length=150, null=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('agent', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.domain')),
