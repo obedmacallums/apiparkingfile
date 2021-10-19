@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Domain, Agent, Camera
+from .models import User, Domain, Agent, Camera, Category
 from django_google_maps import widgets as map_widgets
 from django_google_maps import fields as map_fields
 
@@ -13,6 +13,7 @@ class DomainAdmin(admin.ModelAdmin):
 
 admin.site.register(Domain, DomainAdmin)
 
+
 class AgentAdmin(admin.ModelAdmin):
      formfield_overrides = {
         map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
@@ -20,7 +21,14 @@ class AgentAdmin(admin.ModelAdmin):
 
 admin.site.register(Agent, AgentAdmin)
 
+
 class CameraAdmin(admin.ModelAdmin):
     readonly_fields = ("created", "updated")
 
 admin.site.register(Camera, CameraAdmin)
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    readonly_fields = ("created", "updated")
+
+admin.site.register(Category, CategoryAdmin)

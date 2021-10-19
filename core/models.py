@@ -62,6 +62,11 @@ class Camera(models.Model):
 class Category(models.Model):
     name =  models.CharField(max_length=50, validators=[alphanumeric_upper_space])
     agent = models.ForeignKey(Agent, on_delete=models.SET_NULL, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 class AddedInfo(models.Model):
     pass
