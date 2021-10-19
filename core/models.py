@@ -62,3 +62,9 @@ class Camera(models.Model):
 class Category(models.Model):
     name =  models.CharField(max_length=50, validators=[alphanumeric_upper_space])
     agent = models.ForeignKey(Agent, on_delete=models.SET_NULL, null=True)
+
+class AddedInfo(models.Model):
+    pass
+
+class Entry(models.Model):
+    pass
