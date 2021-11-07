@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Domain, Agent, Camera, Category
+from .models import User, Domain, Agent, Camera, Category, MetaData, AddedInfo, Entry
 from django_google_maps import widgets as map_widgets
 from django_google_maps import fields as map_fields
 
@@ -32,3 +32,20 @@ class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ("created", "updated")
 
 admin.site.register(Category, CategoryAdmin)
+
+class MetaDataAdmin(admin.ModelAdmin):
+    readonly_fields = ("created", "updated")
+
+admin.site.register(MetaData, MetaDataAdmin)
+
+
+class AddedInfoAdmin(admin.ModelAdmin):
+    readonly_fields = ("created", "updated")
+
+admin.site.register(AddedInfo, AddedInfoAdmin)
+
+class EntryAdmin(admin.ModelAdmin):
+    readonly_fields = ("created", "updated")
+
+admin.site.register(Entry, EntryAdmin)
+

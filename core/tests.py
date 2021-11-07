@@ -1,4 +1,4 @@
-from .custom import alphanumeric_upper_space, domain_validator, file_name_validator
+from .custom import alphanumeric_upper_space, domain_validator, file_name_validator, alphanumeric_upper
 from .models import Domain
 import pytest
 from django.core.exceptions import ValidationError
@@ -20,6 +20,16 @@ def test_alphanumeric_upper_space(correct_value, incorrect_value):
     val = alphanumeric_upper_space(value=correct_value)
     with pytest.raises(ValidationError) as e_info:
         val = alphanumeric_upper_space(value=incorrect_value)
+
+
+@pytest.mark.parametrize(['correct_value', 'incorrect_value'], 
+                        [('OKOKOKOK11OK', '1okook'),
+                         ('AABB23','HOLA HOLA')
+                        ])
+def test_alphanumeric_upper(correct_value, incorrect_value):
+    val = alphanumeric_upper(value=correct_value)
+    with pytest.raises(ValidationError) as e_info:
+        val = alphanumeric_upper(value=incorrect_value)
 
 @pytest.mark.parametrize(['correct_value', 'incorrect_value'], 
                         [('file.txt', '*.123*'),

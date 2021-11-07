@@ -1,5 +1,5 @@
 from django.db import models
-from .custom import domain_validator, alphanumeric_upper_space, file_name_validator
+from .custom import domain_validator, alphanumeric_upper_space, file_name_validator, alphanumeric_upper
 from django.contrib.auth.models import AbstractUser
 from django_google_maps import fields as map_fields
 from django.core.validators import URLValidator
@@ -15,6 +15,15 @@ class LocalURLField(models.URLField):
             'form_class': LocalURLFormField,
             **kwargs,
         })
+
+class MetaData(models.Model):
+    meta_data = models.JSONField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "meta data"
+
 
 class Domain(models.Model):
     domain = models.CharField(max_length=15, validators=[domain_validator], unique=True)
@@ -72,7 +81,54 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
 class AddedInfo(models.Model):
-    pass
+    plate = models.CharField(max_length=8, validators=[alphanumeric_upper])
+    driver_name = models.CharField(max_length=100, validators=[alphanumeric_upper_space], blank=True, null=True)
+    driver_id = models.CharField(max_length=20, blank=True, null=True)
+    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    custom_fields = models.JSONField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "added info"
+
+    def __str__(self):
+        return self.plate
+
+
 
 class Entry(models.Model):
-    pass
+    plate = models.CharField(max_length=8, validators=[alphanumeric_upper])
+
+    camara = models.ForeignKey(Camera, null=True, on_delete=models.SET_NULL)
+    agent = models.ForeignKey(Agent, null=True, on_delete=models.SET_NULL)
+    
+    confidence = models.FloatField(blank=True, null=True)
+    travel_direction = models.FloatField(blank=True, null=True)
+
+    vehicle = models.JSONField(blank=True, null=True)
+    
+    is_parked = models.BooleanField(default=False)
+    is_preview = models.BooleanField(default=False)
+    vehicle_detected = models.BooleanField(default=False)
+    
+    best_uuid = models.CharField(max_length=100, blank=True, null=True)
+    link_image = models.URLField (blank=True, null=True)
+    image = models.TextField(blank=True, null=True)
+    crop_image = models.TextField(blank=True, null=True)
+
+    driver_name = models.CharField(max_length=100, validators=[alphanumeric_upper_space], blank=True, null=True)
+    driver_id = models.CharField(max_length=20, blank=True, null=True)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    custom_fields = models.JSONField(blank=True, null=True)
+
+    meta_data = models.OneToOneField(MetaData, null=True, on_delete=models.SET_NULL)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.plate
+
+
+
