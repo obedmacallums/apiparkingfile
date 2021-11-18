@@ -1,7 +1,9 @@
 from .custom import alphanumeric_upper_space, domain_validator, file_name_validator, alphanumeric_upper
-from .models import Domain
+from .models import Agent, Domain, MetaData
 import pytest
 from django.core.exceptions import ValidationError
+
+# custom file
 
 @pytest.mark.parametrize('correct_value, incorrect_value', 
                         [('okokok', '1okook'),
@@ -41,18 +43,3 @@ def test_file_name_validator(correct_value, incorrect_value):
         val = file_name_validator(value=incorrect_value)
 
 
-@pytest.mark.parametrize(['subdomain', 'description'], 
-                        [('okok', 'DESCRIPTION')
-                        ])
-@pytest.mark.django_db
-def test_create_domain(subdomain, description):
-    domain = Domain.objects.create(domain=subdomain, description=description)
-    domain.full_clean()
-    domain.save()
-
-def test_admin_view(admin_client):
-    response = admin_client.get('/admin/')
-    assert response.status_code == 200
-
-
-    

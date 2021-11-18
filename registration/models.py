@@ -17,7 +17,7 @@ class Profile(models.Model):
     updated = models.DateTimeField(auto_now=True)
         
     def __str__(self):
-        return  str(self.user) + "_profile"
+        return  self.user.username + "_profile"
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def ensure_profile_exists(sender, instance, **kwargs):

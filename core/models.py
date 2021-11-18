@@ -1,9 +1,12 @@
 from django.db import models
-from .custom import domain_validator, alphanumeric_upper_space, file_name_validator, alphanumeric_upper
+from .custom import domain_validator, alphanumeric_upper_space, file_name_validator, alphanumeric_upper, JSONSchemaValidator
 from django.contrib.auth.models import AbstractUser
 from django_google_maps import fields as map_fields
 from django.core.validators import URLValidator
 from .forms import LocalURLFormField
+
+
+
 
 
 
@@ -17,12 +20,17 @@ class LocalURLField(models.URLField):
         })
 
 class MetaData(models.Model):
-    meta_data = models.JSONField()
+    MY_JSON_FIELD_SCHEMA = {    
+    'type': 'object'
+    }
+
+    meta_data = models.JSONField(validators=[JSONSchemaValidator(limit_value=MY_JSON_FIELD_SCHEMA)])
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "meta data"
+
 
 
 class Domain(models.Model):

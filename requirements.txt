@@ -4,11 +4,13 @@ Django==3.2.7
 django-google-maps==0.12.4
 django-phonenumber-field==5.2.0
 iniconfig==1.1.1
+jsonschema==4.2.1
 packaging==21.0
 phonenumbers==8.12.35
 pluggy==1.0.0
 py==1.10.0
 pyparsing==2.4.7
+pyrsistent==0.18.0
 pytest==6.2.5
 pytest-django==4.4.0
 python-decouple==3.5
