@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_google_maps',
     'core',
     'phonenumber_field',
+    'alert',
 
 ]
 

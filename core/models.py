@@ -78,7 +78,7 @@ class Camera(models.Model):
 
 class Category(models.Model):
     name =  models.CharField(max_length=50, validators=[alphanumeric_upper_space])
-    agent = models.ForeignKey(Agent, on_delete=models.SET_NULL, null=True)
+    agent = models.ForeignKey(Agent, on_delete=models.SET_NULL, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -86,7 +86,10 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "categories"
+        verbose_name_plural = "categories"        
+        constraints = [
+        models.UniqueConstraint(fields= ['name','agent'], name='unique_name_agent'),
+        ]
 
 class AddedInfo(models.Model):
     plate = models.CharField(max_length=8, validators=[alphanumeric_upper])
@@ -127,7 +130,7 @@ class Entry(models.Model):
 
     driver_name = models.CharField(max_length=100, validators=[alphanumeric_upper_space], blank=True, null=True)
     driver_id = models.CharField(max_length=20, blank=True, null=True)
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, default=None)
     custom_fields = models.JSONField(blank=True, null=True)
 
     meta_data = models.OneToOneField(MetaData, null=True, on_delete=models.SET_NULL)
