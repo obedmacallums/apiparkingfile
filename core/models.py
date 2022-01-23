@@ -95,7 +95,7 @@ class AddedInfo(models.Model):
     plate = models.CharField(max_length=8, validators=[alphanumeric_upper])
     driver_name = models.CharField(max_length=100, validators=[alphanumeric_upper_space], blank=True, null=True)
     driver_id = models.CharField(max_length=20, blank=True, null=True)
-    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     custom_fields = models.JSONField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

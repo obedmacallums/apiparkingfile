@@ -104,3 +104,4 @@ ENV/
 
 # warning with zappa_settings.json
 #zappa_settings.json
+.DS_Store
