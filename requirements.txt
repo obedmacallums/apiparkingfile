@@ -1,7 +1,7 @@
 asgiref==3.4.1
 attrs==21.2.0
 Django==3.2.7
-django-google-maps==0.12.4
+django-google-maps==0.13.0
 django-phonenumber-field==5.2.0
 iniconfig==1.1.1
 jsonschema==4.2.1
